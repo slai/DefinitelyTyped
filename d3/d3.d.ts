@@ -1032,9 +1032,77 @@ declare module D3 {
         }
 
         export interface StackLayout {
+            /**
+             * Computes the y-coordinate baseline for each series (layer) in layers, and then propagate that baseline to
+             * the other layers.
+             */
             <T>(layers: T[], index?: number): T[];
+            /**
+             * Specifies how to extract values from the associated element in layers.
+             */
             values(accessor?: (d: any) => any): StackLayout;
-            offset(offset: string): StackLayout;
+            offset: {
+                /**
+                 * Returns the current stack offset algorithm.
+                 */
+                (): any;
+                /**
+                 * Sets the stack offset algorithm to one of the pre-defined options.
+                 *
+                 * @param offset: valid values are silhouette, wiggle, expand or zero
+                 */
+                (offset: string): StackLayout;
+                /**
+                 * Sets the stack offset algorithm to the given function. The function signature should be
+                 * function (layerData: any[]): any[] where the return value is an array of values which represents the
+                 * y-coordinates of the baseline.
+                 *
+                 * @param offset: the function to use as the stack offset algorithm
+                 */
+                (offset: (d: any) => any): StackLayout;
+            };
+            order: {
+                /**
+                 * Returns the current stack order.
+                 */
+                (): any;
+                /**
+                 * Sets the stack order to one of the pre-defined options.
+                 *
+                 * @param order: valid values are inside-out, reverse or default
+                 */
+                (order: string): StackLayout;
+                /**
+                 * Sets the stack order to the given function. The function signature should be
+                 * function (layerData: any[]): any[] where the return value is an array of indexes which represents the
+                 * layer order.
+                 *
+                 * @param order: the function to use to determine the stack order
+                 */
+                (order: (d: any) => any): StackLayout;
+            }
+            /**
+             * Specifies how to access the x-coordinate of each value's position.
+             *
+             * If accessor is specified, sets the accessor to the specified function. If accessor is not specified,
+             * returns the current function, which by default assumes that each input value has an x attribute.
+             */
+            x(accessor?: (d: any) => any): StackLayout;
+            /**
+             * Specifies how to access the y-coordinate of each value's thickness.
+             *
+             * If accessor is specified, sets the accessor to the specified function. If accessor is not specified,
+             * returns the current function, which by default assumes that each input value has a y attribute
+             *
+             */
+            y(accessor?: (d: any) => any): StackLayout;
+            /**
+             * Specifies how to propagate the computed baseline to above layers.
+             *
+             * If setter is specified, it is used as the output function. If setter is not specified, returns the
+             * current output function, which by default assumes that each input value has y and y0 attributes.
+             */
+            out(setter?: (d: any, y0: any, y: any) => void): StackLayout;
         }
 
         export interface TreeLayout {
