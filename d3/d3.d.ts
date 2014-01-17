@@ -1701,35 +1701,124 @@ declare module D3 {
         }
 
         export interface Axis {
+            /**
+             * Create a new default axis.
+             */
+            (): void;
+            /**
+             * Apply the axis to a selection or transition. The selection must contain an SVG or G element.
+             */
             (selection: Selection): void;
+
             scale: {
+                /**
+                 * Returns the current scale, which defaults to a linear scale.
+                 */
                 (): any;
+                /**
+                 * Sets the scale and returns the axis.
+                 */
                 (scale: any): Axis;
             };
 
             orient: {
+                /**
+                 * Returns the current orientation with defaults to “bottom”
+                 */
                 (): string;
+                /**
+                 * Sets the orientation and returns the axis.
+                 * @param orientation: the valid values are top, bottom, left and right
+                 */
                 (orientation: string): Axis;
             };
 
             ticks: {
+                /**
+                 * Returns the current tick arguments, which default to [10].
+                 */
                 (): any[];
+                /**
+                 * Stores the specified arguments for subsequent use in generating ticks and returns the axis.
+                 */
                 (...arguments: any[]): Axis;
             };
 
             tickPadding: {
+                /**
+                 * Returns the current padding which defaults to 3 pixels.
+                 */
                 (): number;
+                /**
+                 * Sets the padding to the specified value in pixels and returns the axis.
+                 */
                 (padding: number): Axis;
             };
 
             tickValues: {
+                /**
+                 * Returns the currently-set tick values, which defaults to null.
+                 */
                 (): any[];
+                /**
+                 * Use the specified values are used for ticks, rather than using the scale's automatic tick generator.
+                 */
                 (values: any[]): Axis;
             };
 
-            tickSubdivide(count: number): Axis;
-            tickSize(major?: number, minor?: number, end?: number): Axis;
-            tickFormat(formatter: (value: any) => string): Axis;
+            /**
+             * If inner, outer are specified,  If inner, outer are not specified,
+             */
+                tickSize: {
+                /**
+                 * Returns the current inner tick size, which defaults to 6.
+                 */
+                (): number;
+                /**
+                 * sets the inner and outer tick sizes to the specified value and returns the axis.
+                 */
+                (inner: number, outer: number): Axis
+            };
+
+            /**
+             * The inner tick size controls the length of the tick lines, offset from the native position of the axis.
+             */
+                innerTickSize: {
+                /**
+                 * Returns the current inner tick size, which defaults to 6.
+                 */
+                (): number;
+                /**
+                 * Sets the inner tick size to the specified value and returns the axis.
+                 */
+                (size: number): Axis
+            };
+
+            /**
+             * The outer tick size controls the length of the square ends of the domain path, offset from the native
+             * position of the axis.
+             */
+                outerTickSize: {
+                /**
+                 * Returns the current outer tick size, which defaults to 6.
+                 */
+                (): number;
+                /**
+                 * Sets the outer tick size to the specified value and returns the axis.
+                 */
+                (size: number): Axis
+            };
+
+            tickFormat: {
+                /**
+                 * Returns the current format function, which defaults to null.
+                 */
+                (): any;
+                /**
+                 * Sets the format to the specified function and returns the axis.
+                 */
+                (formatter: (value: any) => string): Axis
+            };
         }
 
         export interface Arc {
